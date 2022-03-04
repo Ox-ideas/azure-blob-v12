@@ -19,26 +19,16 @@ namespace BlobV12Net6
                 .Build();
 
             // Get values from the config given their key and their target type.
-            Settings settings = config.GetRequiredSection("Settings").Get<Settings>();
+            int keyOneValue = config.GetValue<int>("Settings:KeyOne");
+            bool keyTwoValue = config.GetValue<bool>("Settings:KeyTwo");
+            string keyThreeNestedValue = config.GetValue<string>("Settings:KeyThree:Message");
+            var keyThreeNestedValueB = config.GetValue<string>("Settings:KeyThree:MessageB");
 
             // Write the values to the console.
-            Console.WriteLine($"KeyOne = {settings.KeyOne}");
-            Console.WriteLine($"KeyTwo = {settings.KeyTwo}");
-            Console.WriteLine($"KeyThree:Message = {settings.KeyThree.Message}");
-            Console.WriteLine($"KeyThree:MessageB = {settings.KeyThree.MessageB}");
-        }
-
-        public class Settings
-        {
-            public int KeyOne { get; set; }
-            public bool KeyTwo { get; set; }
-            public NestedSettings KeyThree { get; set; } = null!;
-        }
-
-        public class NestedSettings
-        {
-            public string Message { get; set; } = null!;
-            public string MessageB { get; set; } = null!;
+            Console.WriteLine($"KeyOne = {keyOneValue}");
+            Console.WriteLine($"KeyTwo = {keyTwoValue}");
+            Console.WriteLine($"KeyThree:Message = {keyThreeNestedValue}");
+            Console.WriteLine($"KeyThree:MessageB = {keyThreeNestedValueB}");
         }
     }
 }
